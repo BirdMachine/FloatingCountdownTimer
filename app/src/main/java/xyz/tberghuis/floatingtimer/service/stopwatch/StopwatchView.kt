@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import kotlinx.coroutines.flow.MutableStateFlow
 import xyz.tberghuis.floatingtimer.composables.TimerRectView
+import xyz.tberghuis.floatingtimer.composables.LabeledTimer
 
 @Composable
 fun StopwatchView(
@@ -42,15 +43,17 @@ fun StopwatchView(
 
   when (timerShape) {
     "circle" -> {
-      StopwatchCircleView(
-        isRunningStateFlow = isRunningStateFlow,
-        arcWidth = arcWidth,
-        haloColor = haloColor,
-        timeElapsed = timeElapsed,
-        fontSize = fontSize,
-        isBackgroundTransparent = isBackgroundTransparent,
-        paddingTimerDisplay = paddingTimerDisplay
-      )
+      LabeledTimer(label, fontSize, isBackgroundTransparent) {
+        StopwatchCircleView(
+          isRunningStateFlow = isRunningStateFlow,
+          arcWidth = arcWidth,
+          haloColor = haloColor,
+          timeElapsed = timeElapsed,
+          fontSize = fontSize,
+          isBackgroundTransparent = isBackgroundTransparent,
+          paddingTimerDisplay = paddingTimerDisplay
+        )
+      }
     }
 
     "label", "rectangle" -> {
@@ -61,7 +64,7 @@ fun StopwatchView(
         timeElapsed,
         1f,
         fontSize,
-        if (timerShape == "label") label else null,
+        label,
         isBackgroundTransparent,
       )
     }

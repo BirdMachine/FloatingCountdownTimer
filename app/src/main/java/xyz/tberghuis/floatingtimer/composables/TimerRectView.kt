@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.text.style.TextOverflow
 import kotlin.math.min
 
 @Composable
@@ -39,7 +40,7 @@ fun TimerRectView(
   label: String?,
   isBackgroundTransparent: Boolean,
 ) {
-  @Suppress("NAME_SHADOWING") val label = if (label == "") null else label
+  @Suppress("NAME_SHADOWING") val label = label?.trim()?.takeIf { it.isNotEmpty() }
 
   val bubbleModifier = if (isBackgroundTransparent)
     Modifier
@@ -86,7 +87,8 @@ fun TimerRectView(
             TimerText(
               label,
               fontSize,
-              isBackgroundTransparent
+              isBackgroundTransparent,
+              overflow = TextOverflow.Ellipsis
             )
           }
         }

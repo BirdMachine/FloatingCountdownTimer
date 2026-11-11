@@ -9,6 +9,11 @@ Features both a countdown timer and stopwatch that will float over other apps.
 * Tap to start / pause
 * Double tap to reset
 * Drag to trash to exit
+* Optional labels for countdowns and stopwatches, with either circle or rectangle bubbles.
+  Enter a name in **Label (optional)** before creating or saving a timer. Leave it blank
+  for a timer without a label. Circle labels appear below the bubble; rectangle labels
+  appear beside the time. Saved timers and their home-screen shortcuts retain the label.
+  Long labels are shortened visually to keep the time readable; the full name is saved.
 
 SYSTEM_ALERT_WINDOW uses ComposeView that I got working using hacks discussed
 https://gist.github.com/handstandsam/6ecff2f39da72c0b38c07aa80bbb5a2f

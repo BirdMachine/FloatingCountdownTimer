@@ -6,6 +6,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import xyz.tberghuis.floatingtimer.composables.TimerRectView
+import xyz.tberghuis.floatingtimer.composables.LabeledTimer
 import xyz.tberghuis.floatingtimer.service.BubbleProperties
 
 @Composable
@@ -29,18 +30,22 @@ fun CountdownView(
 ) {
   when (bubbleProperties.timerShape) {
     "circle" -> {
-      CountdownCircleView(
-        bubbleProperties = bubbleProperties,
-        timeLeftFraction = timeLeftFraction,
-        countdownSeconds = countdownSeconds,
-        isPaused = isPaused,
+      LabeledTimer(
+        bubbleProperties.label,
+        bubbleProperties.fontSize,
         bubbleProperties.isBackgroundTransparent
-      )
+      ) {
+        CountdownCircleView(
+          bubbleProperties = bubbleProperties,
+          timeLeftFraction = timeLeftFraction,
+          countdownSeconds = countdownSeconds,
+          isPaused = isPaused,
+          bubbleProperties.isBackgroundTransparent
+        )
+      }
     }
 
     "label", "rectangle" -> {
-      // this is redundant, unless bad data in DB
-      val label = if (bubbleProperties.timerShape == "label") bubbleProperties.label else null
       TimerRectView(
         isPaused,
         bubbleProperties.arcWidth,
@@ -48,7 +53,7 @@ fun CountdownView(
         countdownSeconds,
         timeLeftFraction,
         bubbleProperties.fontSize,
-        label,
+        bubbleProperties.label,
         bubbleProperties.isBackgroundTransparent,
       )
     }
