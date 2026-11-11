@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
@@ -32,6 +33,7 @@ fun CreateStopwatchCard() {
   val context = LocalContext.current
   val sharedVm: SharedVm = viewModel(context as ComponentActivity)
   val vm: StopwatchScreenVm = viewModel()
+  val focusManager = LocalFocusManager.current
 
   ElevatedCard(
     modifier = Modifier
@@ -56,12 +58,14 @@ fun CreateStopwatchCard() {
     ) {
       ChangeTimerColorButton("change_color/stopwatch", vm.haloColor)
       AddSavedButton {
+        focusManager.clearFocus()
         vm.addToSaved()
       }
       Button(modifier = Modifier
         .semantics { testTagsAsResourceId = true }
         .testTag("create_stopwatch"),
         onClick = {
+          focusManager.clearFocus()
           logd("start stopwatch")
           if (!Settings.canDrawOverlays(context)) {
             sharedVm.showGrantOverlayDialog = true

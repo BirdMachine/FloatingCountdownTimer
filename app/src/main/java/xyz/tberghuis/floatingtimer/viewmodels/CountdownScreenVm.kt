@@ -85,7 +85,7 @@ class CountdownScreenVm(
   fun countdownButtonClick() {
     val totalSecs = calcTotalDurationSeconds() ?: return
     // no warning about var name shadowed???
-    val label = if (timerShape == "label") label else null
+    val label = label.trim().takeIf { it.isNotEmpty() }
     logd("countdownButtonClick isBackgroundTransparent $isBackgroundTransparent")
     addCountdown(totalSecs, haloColor, timerShape, label, isBackgroundTransparent)
   }
@@ -159,7 +159,7 @@ class CountdownScreenVm(
 
   fun addToSaved() {
     val durationSeconds = calcTotalDurationSeconds() ?: return
-    val label = if (label == "" || timerShape != "label") null else label
+    val label = label.trim().takeIf { it.isNotEmpty() }
     val timer = SavedCountdown(
       timerShape = timerShape,
       timerColor = haloColor.toArgb(),

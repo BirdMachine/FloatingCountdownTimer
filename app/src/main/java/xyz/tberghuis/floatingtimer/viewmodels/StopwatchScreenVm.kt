@@ -87,13 +87,13 @@ class StopwatchScreenVm(
   }
 
   fun stopwatchButtonClick() {
-    val label = if (timerShape == "label") label else null
+    val label = label.trim().takeIf { it.isNotEmpty() }
     logd("stopwatchButtonClick isBackgroundTransparent $isBackgroundTransparent")
     addStopwatch(haloColor, timerShape, label, isBackgroundTransparent)
   }
 
   fun addToSaved() {
-    val label = if (label == "" || timerShape != "label") null else label
+    val label = label.trim().takeIf { it.isNotEmpty() }
     val timer = SavedStopwatch(
       timerShape = timerShape,
       timerColor = haloColor.toArgb(),
